@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Get crypto data in real time</title>
+  </head>
+  <body>
+    <p id="info"></p>
+    <p id="infotime"></p>
+  </body>
+  <script>
+    const getBtcData = async () => {
+      fetch(
+        "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD&api_key=21ae04b59f3d0c824aa58b731c2e36e189771f6b2a895f94a43bebe6528fd718"
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          document.getElementById("info").innerHTML =
+            "<b>1 BTC = " + data.USD + " USD</b>";
+        });
+    };
+    getBtcData();
+    tcount = setInterval(function () {
+      tcount++;
+      if (tcount == 10) {
+        getBtcData();
+        tcount = 0;
+      }
+      document.getElementById("infotime").innerHTML =
+        "Next update in " + (10 - tcount) + " seconds";
+    }, 1000);
+  </script>
+</html>
